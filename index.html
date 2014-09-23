@@ -9,8 +9,16 @@
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
+      #messages li {
+        padding: 5px 10px;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      #messages li:nth-of-type(4n)   { background: red; }
+      #messages li:nth-of-type(4n-1) { background: green; }
+      #messages li:nth-of-type(4n-2) { background: purple; }
+      #messages li:nth-of-type(4n-3) { background: orange; }
     </style>
   </head>
   <body>
@@ -26,7 +34,10 @@
         socket.emit('chat message', $('#m').val())
         $('#m').val('');
         return false;
-        })
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
     </script>
   </body>
 </html>
